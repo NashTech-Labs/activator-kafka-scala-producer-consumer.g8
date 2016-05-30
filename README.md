@@ -1,6 +1,8 @@
 # activator-kafka-pubsub
 
-###Download link for kafka :
+##Steps to Install and Run zookeeper and kafka on your system : 
+
+Step 1: Download kafka
 
     http://kafka.apache.org/downloads.html
 
@@ -8,10 +10,20 @@ Once you download it, Set number of log partitions per topic to 8 in server.prop
 
     num.partitions=8
 
-##Run zookeeper and kafka on your system : 
+Step2: Extract it
 
-    kafka$ bin/zookeeper-server-start.sh config/zookeeper.properties
-    kafka$ bin/kafka-server-start.sh config/server.properties 
+    $ tar -xzf kafka_2.11-0.10.0.0.tgz
+    $ cd  kafka_2.11-0.10.0.0
+
+Step3: Start the server
+
+Start  zookeeper:
+
+     $ bin/zookeeper-server-start.sh config/zookeeper.properties
+
+Start  Kafka server:
+
+    $ bin/kafka-server-start.sh config/server.properties
     
 ##Steps to start producer service :
 
