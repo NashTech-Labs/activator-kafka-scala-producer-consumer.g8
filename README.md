@@ -2,9 +2,7 @@
 
 ##Steps to Install and Run zookeeper and kafka on your system : 
 
-Step 1: Download kafka
-
-    http://kafka.apache.org/downloads.html
+Step 1: Download kafka from [here](http://mirror.fibergrid.in/apache/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz)
 
 Once you download it, Set number of log partitions per topic to 8 in server.properties
 
@@ -27,12 +25,12 @@ Start  Kafka server:
     
 ##Steps to start producer service :
 
-    ./activator "run-main com.knoldus.kafka.demo.ProducerApp"
+    $ ./activator "run-main com.knoldus.kafka.demo.ProducerApp"
   
   This producer sends 10 million messages in kafka queue using batch size of 50.
 
 ##Steps to start consumer service :
 
-    ./activator "run-main com.knoldus.kafka.demo.ConsumerApp"
+    $ ./activator "run-main com.knoldus.kafka.demo.ConsumerApp"
   
   You can start multiple consumers at a time which pull messages from kafka queue.
