@@ -1,17 +1,19 @@
 package com.knoldus.kafka.demo
 
-import com.knoldus.kafka.producer.KafkaProducer
+import com.knoldus.kafka.producer.{AsyncProducer, KafkaProducer}
 
 
 object ProducerApp extends App {
 
-  val topic = "demo_topic1"
+  val topic = "demo-topic"
 
-  val producer = new KafkaProducer("localhost:9092")
+  val producer = new AsyncProducer("localhost:9092")
+  //val producer = new KafkaProducer("localhost:9092")
 
-  // batch sending
-  val batchSize = 50
-  (1 to 10000000).toList.map(no => "Message " + no).grouped(batchSize).foreach { message =>
+  val batchSize = 100
+
+  (1 to 1000000).toList.map(no => "Message " + no).grouped(batchSize).foreach { message =>
+    println("Sending message batch size " + message.length)
     producer.send(topic, message)
   }
 

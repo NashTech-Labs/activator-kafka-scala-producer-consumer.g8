@@ -1,18 +1,19 @@
 package com.knoldus.kafka.producer
 
-import java.util.{Properties, UUID}
+import java.util.{UUID, Properties}
 
 import kafka.message.DefaultCompressionCodec
-import kafka.producer.{KeyedMessage, Producer, ProducerConfig}
+import kafka.producer.{KeyedMessage, ProducerConfig, Producer}
 
 
-class KafkaProducer(brokerList: String) {
+class AsyncProducer(brokerList: String) {
 
 
   private val props = new Properties()
 
   props.put("compression.codec", DefaultCompressionCodec.codec.toString)
-  props.put("producer.type", "sync")
+  props.put("producer.type", "async")
+  props.put("batch.num.messages", "200")
   props.put("metadata.broker.list", brokerList)
   props.put("message.send.max.retries", "5")
   props.put("request.required.acks", "-1")

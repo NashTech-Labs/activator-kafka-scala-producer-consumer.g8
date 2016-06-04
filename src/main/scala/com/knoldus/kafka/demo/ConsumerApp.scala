@@ -3,11 +3,11 @@ package com.knoldus.kafka.demo
 import com.knoldus.kafka.consumer.KafkaConsumer
 
 
-object ConsumerApp extends App{
+object ConsumerApp extends App {
 
 
-  val topic = "demo_topic1"
-  val groupId = "group-1"
+  val topic = "demo-topic"
+  val groupId = "demo-topic-consumer"
 
   val consumer = new KafkaConsumer(topic, groupId, "localhost:2181")
 
@@ -16,7 +16,7 @@ object ConsumerApp extends App{
       case Some(message) =>
         println("Getting message.......................  " + message)
         // wait for 100 milli second for another read
-       Thread.sleep(100)
+        Thread.sleep(100)
       case None =>
         println("Queue is empty.......................  ")
         // wait for 2 second

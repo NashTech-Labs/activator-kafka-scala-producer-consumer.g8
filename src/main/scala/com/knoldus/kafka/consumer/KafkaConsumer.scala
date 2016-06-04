@@ -6,8 +6,8 @@ import kafka.consumer.{Consumer, ConsumerConfig, ConsumerTimeoutException, White
 import kafka.serializer.DefaultDecoder
 
 
-
 class KafkaConsumer(topic: String, groupId: String, zookeeperConnect: String) {
+
 
 
   private val props = new Properties()
@@ -15,9 +15,10 @@ class KafkaConsumer(topic: String, groupId: String, zookeeperConnect: String) {
   props.put("group.id", groupId)
   props.put("zookeeper.connect", zookeeperConnect)
   props.put("auto.offset.reset", "smallest")
-  props.put("consumer.timeout.ms", "500")
-  props.put("auto.commit.interval.ms", "500")
-
+  //2 minute consumer timeout
+  props.put("consumer.timeout.ms", "120000")
+  //commit after each 10 second
+  props.put("auto.commit.interval.ms", "10000")
   private val config = new ConsumerConfig(props)
   private val connector = Consumer.create(config)
   private val filterSpec = new Whitelist(topic)
@@ -25,17 +26,17 @@ class KafkaConsumer(topic: String, groupId: String, zookeeperConnect: String) {
 
   lazy val iterator = streams.iterator()
 
-  def read() =
+  def read(): Option[String] =
     try {
       if (hasNext) {
-       println("Getting message from queue.............")
+        println("Getting message from queue.............")
         val message = iterator.next().message()
         Some(new String(message))
       } else {
         None
       }
     } catch {
-      case ex: Throwable =>
+      case ex: Exception =>
         ex.printStackTrace()
         None
     }
@@ -46,10 +47,12 @@ class KafkaConsumer(topic: String, groupId: String, zookeeperConnect: String) {
     catch {
       case timeOutEx: ConsumerTimeoutException =>
         false
-      case ex: Throwable =>
-       println("Getting error when reading message ")
+      case ex: Exception =>
+        ex.printStackTrace()
+        println("Getting error when reading message ")
         false
     }
 
   def close(): Unit = connector.shutdown()
+
 }

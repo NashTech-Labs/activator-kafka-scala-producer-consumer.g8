@@ -1,6 +1,6 @@
-# activator-kafka-pubsub
+# activator-kafka-scala-producer-consumer
 
-##Steps to Install and Run zookeeper and kafka on your system : 
+#### Steps to Install and Run zookeeper and kafka on your system : 
 
 Step 1: Download kafka from [here](http://mirror.fibergrid.in/apache/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz)
 
@@ -23,13 +23,23 @@ Start  Kafka server:
 
     $ bin/kafka-server-start.sh config/server.properties
     
-##Steps to start producer service :
+#### Clone Project:
+   
+    
+    $ git clone git@github.com:knoldus/activator-kafka-scala-producer-consumer.git
+    
+    $ cd activator-kafka-scala-producer-consumer
+    
+    $ ./activator clean compile
+    
+    
+#### Steps to start producer service :
 
     $ ./activator "run-main com.knoldus.kafka.demo.ProducerApp"
   
   This producer sends 10 million messages in kafka queue using batch size of 50.
 
-##Steps to start consumer service :
+#### Steps to start consumer service :
 
     $ ./activator "run-main com.knoldus.kafka.demo.ConsumerApp"
   
